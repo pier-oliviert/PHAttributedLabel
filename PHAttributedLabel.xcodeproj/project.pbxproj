@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		002212411469DF2F000E8F1C /* PHTextCheckingResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 0022123F1469DF2F000E8F1C /* PHTextCheckingResult.h */; };
-		002212421469DF2F000E8F1C /* PHTextCheckingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 002212401469DF2F000E8F1C /* PHTextCheckingResult.m */; };
-		002212431469DF2F000E8F1C /* PHTextCheckingResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 002212401469DF2F000E8F1C /* PHTextCheckingResult.m */; };
 		00F16B2C146967BA008F4B6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B2B146967BA008F4B6A /* UIKit.framework */; };
 		00F16B2E146967BA008F4B6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B2D146967BA008F4B6A /* Foundation.framework */; };
 		00F16B30146967BA008F4B6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B2F146967BA008F4B6A /* CoreGraphics.framework */; };
@@ -20,7 +17,7 @@
 		00F16B42146967BA008F4B6A /* PHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00F16B40146967BA008F4B6A /* PHViewController.xib */; };
 		00F16B50146967D7008F4B6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B2D146967BA008F4B6A /* Foundation.framework */; };
 		00F16B56146967D7008F4B6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 00F16B54146967D7008F4B6A /* InfoPlist.strings */; };
-		00F16B5D14696814008F4B6A /* PHAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F16B5B14696814008F4B6A /* PHAttributedLabel.h */; };
+		00F16B5D14696814008F4B6A /* PHAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F16B5B14696814008F4B6A /* PHAttributedLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00F16B5E14696814008F4B6A /* PHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B5C14696814008F4B6A /* PHAttributedLabel.m */; };
 		00F16B5F14696814008F4B6A /* PHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B5C14696814008F4B6A /* PHAttributedLabel.m */; };
 		00F16B6C146968BE008F4B6A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B6B146968BE008F4B6A /* CoreText.framework */; };
@@ -31,8 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0022123F1469DF2F000E8F1C /* PHTextCheckingResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHTextCheckingResult.h; path = PHAttributedLabel/PHTextCheckingResult.h; sourceTree = "<group>"; };
-		002212401469DF2F000E8F1C /* PHTextCheckingResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHTextCheckingResult.m; path = PHAttributedLabel/PHTextCheckingResult.m; sourceTree = "<group>"; };
 		00F16B27146967BA008F4B6A /* PHAttributedLabel Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PHAttributedLabel Application.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F16B2B146967BA008F4B6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		00F16B2D146967BA008F4B6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,13 +47,6 @@
 		00F16B57146967D7008F4B6A /* PHAttributedLabel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PHAttributedLabel-Prefix.pch"; sourceTree = "<group>"; };
 		00F16B5B14696814008F4B6A /* PHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHAttributedLabel.h; path = PHAttributedLabel/PHAttributedLabel.h; sourceTree = "<group>"; };
 		00F16B5C14696814008F4B6A /* PHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHAttributedLabel.m; path = PHAttributedLabel/PHAttributedLabel.m; sourceTree = "<group>"; };
-		00F16B6014696888008F4B6A /* CMFontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFontManager.h; path = ../CMFramework/CMKit/RichText/CMFontManager.h; sourceTree = "<group>"; };
-		00F16B6114696888008F4B6A /* CMFontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMFontManager.m; path = ../CMFramework/CMKit/RichText/CMFontManager.m; sourceTree = "<group>"; };
-		00F16B6214696888008F4B6A /* CMFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMFrame.h; path = ../CMFramework/CMKit/RichText/CMFrame.h; sourceTree = "<group>"; };
-		00F16B6314696888008F4B6A /* CMText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CMText.h; path = ../CMFramework/CMKit/RichText/CMText.h; sourceTree = "<group>"; };
-		00F16B6414696888008F4B6A /* CMText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CMText.m; path = ../CMFramework/CMKit/RichText/CMText.m; sourceTree = "<group>"; };
-		00F16B6514696888008F4B6A /* UIFont+CTFontRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIFont+CTFontRef.h"; path = "../CMFramework/CMKit/RichText/UIFont+CTFontRef.h"; sourceTree = "<group>"; };
-		00F16B6614696888008F4B6A /* UIFont+CTFontRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIFont+CTFontRef.m"; path = "../CMFramework/CMKit/RichText/UIFont+CTFontRef.m"; sourceTree = "<group>"; };
 		00F16B6B146968BE008F4B6A /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		00F16B751469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+PHCoreTextUtility.h"; path = "PHAttributedLabel/NSAttributedString+PHCoreTextUtility.h"; sourceTree = "<group>"; };
 		00F16B761469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+PHCoreTextUtility.m"; path = "PHAttributedLabel/NSAttributedString+PHCoreTextUtility.m"; sourceTree = "<group>"; };
@@ -91,13 +79,10 @@
 		00F16B1C146967BA008F4B6A = {
 			isa = PBXGroup;
 			children = (
-				00F16B6A1469688C008F4B6A /* Old stuff */,
 				00F16B751469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.h */,
 				00F16B761469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.m */,
 				00F16B5B14696814008F4B6A /* PHAttributedLabel.h */,
 				00F16B5C14696814008F4B6A /* PHAttributedLabel.m */,
-				0022123F1469DF2F000E8F1C /* PHTextCheckingResult.h */,
-				002212401469DF2F000E8F1C /* PHTextCheckingResult.m */,
 				00F16B31146967BA008F4B6A /* PHAttributedLabel Test Application */,
 				00F16B51146967D7008F4B6A /* PHAttributedLabel Framework */,
 				00F16B2A146967BA008F4B6A /* Frameworks */,
@@ -169,20 +154,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		00F16B6A1469688C008F4B6A /* Old stuff */ = {
-			isa = PBXGroup;
-			children = (
-				00F16B6014696888008F4B6A /* CMFontManager.h */,
-				00F16B6114696888008F4B6A /* CMFontManager.m */,
-				00F16B6214696888008F4B6A /* CMFrame.h */,
-				00F16B6314696888008F4B6A /* CMText.h */,
-				00F16B6414696888008F4B6A /* CMText.m */,
-				00F16B6514696888008F4B6A /* UIFont+CTFontRef.h */,
-				00F16B6614696888008F4B6A /* UIFont+CTFontRef.m */,
-			);
-			name = "Old stuff";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -192,7 +163,6 @@
 			files = (
 				00F16B5D14696814008F4B6A /* PHAttributedLabel.h in Headers */,
 				00F16B771469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.h in Headers */,
-				002212411469DF2F000E8F1C /* PHTextCheckingResult.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +278,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n        eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\n    echo \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\n    exit 1\nfi\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    UFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\nthen\n    exit 0\nfi\n\n\n# Make sure the other platform gets built\n\necho \"Build other platform\"\n\necho xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\n\n# Build the fat static library binary\n\necho \"Create universal static library\"\n\necho \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\necho mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nmv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\n    if [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\n    then\n        echo ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n        ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n    fi\ndone\n\n\n# Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n\necho \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n\necho rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nrm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\necho cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\ncp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n";
+			shellScript = "set -e\n\nset +u\nif [[ $UFW_MASTER_SCRIPT_RUNNING ]]\nthen\n    # Nothing for the slave script to do\n    exit 0\nfi\nset -u\nexport UFW_MASTER_SCRIPT_RUNNING=1\n\n\n# Functions\n\n## List files in the specified directory, storing to the specified array.\n#\n# @param $1 The path to list\n# @param $2 The name of the array to fill\n#\n##\nlist_files ()\n{\n    filelist=$(ls \"$1\")\n    while read line\n    do\n        eval \"$2[\\${#$2[*]}]=\\\"\\$line\\\"\"\n    done <<< \"$filelist\"\n}\n\n\n# Sanity check\n\nif [[ ! -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]]\nthen\n    echo \"Framework target \\\"${TARGET_NAME}\\\" had no source files to build from. Make sure your source files have the correct target membership\"\n    exit 1\nfi\n\n\n# Gather information\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\n    UFW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\n    UFW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n    echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n    exit 1\nfi\n\nif [[ \"$UFW_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\n    UFW_OTHER_PLATFORM=iphonesimulator\nelse\n    UFW_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$UFW_SDK_PLATFORM$ ]]\nthen\n    UFW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${UFW_OTHER_PLATFORM}\"\nelse\n    echo \"Could not find $UFW_SDK_PLATFORM in $BUILT_PRODUCTS_DIR\"\n    exit 1\nfi\n\n\n# Short-circuit if all binaries are up to date.\n# We already checked the other platform in the prerun script.\n\nif [[ -f \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" ]] && [[ -f \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]] && [[ ! \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -nt \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/${EXECUTABLE_PATH}\" ]]\nthen\n    exit 0\nfi\n\n\n# Make sure the other platform gets built\n\necho \"Build other platform\"\n\necho xcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${UFW_OTHER_PLATFORM}${UFW_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" CONFIGURATION_TEMP_DIR=\"${PROJECT_TEMP_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\" $ACTION\n\n\n# Build the fat static library binary\n\necho \"Create universal static library\"\n\necho \"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\"$PLATFORM_DEVELOPER_BIN_DIR/libtool\" -static \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" \"${UFW_OTHER_BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\" -o \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\"\n\necho mv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nmv \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}.temp\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\n\n\n# Build embedded framework structure\n\necho \"Build Embedded Framework\"\n\necho rm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\nrm -rf \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework\"\necho mkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources\"\necho cp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\ncp -a \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/\"\n\ndeclare -a UFW_FILE_LIST\nlist_files \"${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\" UFW_FILE_LIST\nfor filename in \"${UFW_FILE_LIST[@]}\"\ndo\n    if [[ \"${filename}\" != \"Info.plist\" ]] && [[ ! \"${filename}\" =~ .*\\.lproj$ ]]\n    then\n        echo ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n        ln -sf \"../${WRAPPER_NAME}/Resources/${filename}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.embeddedframework/Resources/${filename}\"\n    fi\ndone\n\n\n# Replace other platform's framework with a copy of this one (so that both have the same universal binary)\n\necho \"Copy from $UFW_SDK_PLATFORM to $UFW_OTHER_PLATFORM\"\n\necho rm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\nrm -rf \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\necho cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\ncp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}\" \"${BUILD_DIR}/${CONFIGURATION}-${UFW_OTHER_PLATFORM}\"\n\n# Let's try to make a copy of the two frameworks inside the project directory\n\necho \"Copy from $UFW_SDK_PLATFORM to $PROJECT_DIR\"\n\necho rm -rf \"${PROJECT_DIR}/Framework\"\nrm -rf \"${PROJECT_DIR}/Framework\"\necho cp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}/${PRODUCT_NAME}\" \"${PROJECT_DIR}/${PRODUCT_NAME}.embeddedframework\"\ncp -a \"${BUILD_DIR}/${CONFIGURATION}-${UFW_SDK_PLATFORM}/${PRODUCT_NAME}.embeddedframework\" \"${PROJECT_DIR}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -322,7 +292,6 @@
 				00F16B3F146967BA008F4B6A /* PHViewController.m in Sources */,
 				00F16B5E14696814008F4B6A /* PHAttributedLabel.m in Sources */,
 				00F16B781469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.m in Sources */,
-				002212421469DF2F000E8F1C /* PHTextCheckingResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +301,6 @@
 			files = (
 				00F16B5F14696814008F4B6A /* PHAttributedLabel.m in Sources */,
 				00F16B791469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.m in Sources */,
-				002212431469DF2F000E8F1C /* PHTextCheckingResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

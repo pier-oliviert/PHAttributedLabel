@@ -7,7 +7,6 @@
 //
 
 #import "PHAttributedLabel.h"
-#import "PHTextCheckingResult.h"
 #import "NSAttributedString+PHCoreTextUtility.h"
 
 static NSString * const kPHAttributedLabelCachedLineKey     = @"kPHAttributedLabelCachedLineKey";
@@ -16,6 +15,8 @@ static NSString * const kPHAttributedLabelCachedDescentKey  = @"kPHAttributedLab
 static NSString * const kPHAttributedLabelCachedLeadingKey  = @"kPHAttributedLabelCachedLeadingKey";
 static NSString * const kPHAttributedLabelCachedWidthKey    = @"kPHAttributedLabelCachedWidthKey";
 static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLabelCachedRectKey";
+
+NSUInteger const kPHAttributedLabelAutoDetectDisabled       = 0;
 
 @interface PHAttributedLabel (UILineBreakMode)
 
@@ -36,19 +37,27 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
 
 
 
-@interface PHAttributedLabel ()
+@interface PHAttributedLabel () <UIGestureRecognizerDelegate>
 
 - (void)initialize;
 
+- (void)labelTouched:(UIGestureRecognizer *)gestureRecognizer;
+
 - (CGRect)drawLine:(CTLineRef)line atPosition:(CGPoint)position withContext:(CGContextRef)context usingInfo:(NSDictionary *)lineInfo;
 
-//Those 2 properties are assigned because compile complains when retaining. We do retain though.
-@property (nonatomic, assign) CFMutableArrayRef cachedContent;
-@property (nonatomic, assign) CTTypesetterRef typesetter;
+- (NSTextCheckingResult *)textCheckingResultWithIndex:(NSInteger)idx;
+- (void)callBlockLinkedToResult:(NSTextCheckingResult *)result;
+
 
 @property (nonatomic, retain) NSMutableAttributedString *mutableAttributedString;
 
-@property (nonatomic, retain) NSMutableArray *links;
+@property (nonatomic, retain) NSTextCheckingResult *highlightedResult;
+
+//Those properties are assigned because compile complains when retaining. We do retain though.
+@property (nonatomic, assign) CFMutableArrayRef cachedContent;
+@property (nonatomic, assign) CTTypesetterRef typesetter;
+@property (nonatomic, assign) CFMutableDictionaryRef links;
+
 @end
 
 @implementation PHAttributedLabel
@@ -73,29 +82,37 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
 - (void)initialize {
     self.mutableAttributedString    = [[[NSMutableAttributedString alloc] init] autorelease];
     self.cachedContent              = CFArrayCreateMutable(kCFAllocatorDefault, self.numberOfLines, &kCFTypeArrayCallBacks);
-    self.links                      = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    self.links                      = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     self.userInteractionEnabled     = YES;
     
-    [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
-    [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
+    UIGestureRecognizer *gesture    = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTouched:)] autorelease];
+    gesture.delegate                = self;
+    
+    [self addGestureRecognizer:gesture];
+    
     [self addObserver:self forKeyPath:@"font" options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:@"textInsets" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"baselineAdjustment" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"minimumFontSize" options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:@"numberOfLines" options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:@"lineBreakMode" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"adjustsFontSizeToFitWidth" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"frame"];
-    [self removeObserver:self forKeyPath:@"bounds"];
     [self removeObserver:self forKeyPath:@"font"];
     [self removeObserver:self forKeyPath:@"textInsets"];
     [self removeObserver:self forKeyPath:@"numberOfLines"];
     [self removeObserver:self forKeyPath:@"lineBreakMode"];
+    [self removeObserver:self forKeyPath:@"baselineAdjustment"];
+    [self removeObserver:self forKeyPath:@"adjustsFontSizeToFitWidth"];
+    [self removeObserver:self forKeyPath:@"minimumFontSize"];
     
     self.mutableAttributedString    = nil;
     self.typesetter                 = nil;
     self.cachedContent              = nil;
     self.links                      = nil;
+    self.highlightedResult          = nil;
     
     [super dealloc];
 }
@@ -143,7 +160,12 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
     CGContextSetTextPosition(context, f_pos.x, f_pos.y);
     CTLineDraw(line, context);
     
-    rect = CGRectMake(position.x, position.y , width, ascent + descent + leading);
+    //Transform point for iOS coordinate system. This rect will be used to practive hit testing.
+    rect = CGRectMake(CGPointApplyAffineTransform(f_pos, CGAffineTransformMakeScale(1, -1)).x,
+                      position.y,
+                      width, 
+                      ascent + descent + leading);
+    
     [lineInfo setValue:[NSValue valueWithCGRect:rect] forKey:kPHAttributedLabelCachedRectKey];
 
     return rect;
@@ -239,22 +261,26 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
 
 #pragma mark - Accessories
 - (void)setText:(id)text {
-    
+      
     if ([text isKindOfClass:[NSString class]]) {
-        [[self.mutableAttributedString mutableString] setString:text];
-        super.text = text;
+        if (![[self.mutableAttributedString string] isEqualToString:text]) {
+            super.text                          = text;
+            self->_labelFlags.isContentCached   = NO;
+
+            [[self.mutableAttributedString mutableString] setString:text];
+            [self.mutableAttributedString addAttributes:[self labelWideAttributes]
+                                                  range:NSMakeRange(0, [self.mutableAttributedString length])];            
+        }
     } 
     
-    else if ([text superclass] == [NSAttributedString class]) {
-        super.text = [text string];
-        [self.mutableAttributedString setAttributedString:text];
+    else if ([text isKindOfClass:[NSAttributedString class]]) {
+        if (![self.mutableAttributedString isEqualToAttributedString:text]) {
+            [self.mutableAttributedString setAttributedString:text];
+
+            super.text                          = [text string];
+            self->_labelFlags.isContentCached   = NO;
+        }
     }
-
-    [self.mutableAttributedString setAttributes:[self labelWideAttributes]
-                                          range:NSMakeRange(0, [self.mutableAttributedString length])];
-
-    
-    self->_labelFlags.isContentCached   = NO;
 }
 
 - (void)setCachedContent:(CFMutableArrayRef)cachedContent {
@@ -279,29 +305,44 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
 }
 
 
-- (void)setHighlightedTextColor:(UIColor *)highlightedTextColor {
-    super.highlightedTextColor = highlightedTextColor;
+- (void)setLinks:(CFMutableDictionaryRef)links {
+    if (self->_links) {
+        CFRelease(self->_links);
+        self->_links = nil;
+    }
+    if (links) {
+        self->_links = links;
+    }
 }
 
-- (void)setMinimumFontSize:(CGFloat)minimumFontSize {
-    super.minimumFontSize = minimumFontSize;
-    self->_labelFlags.isContentCached = NO;
-}
-
-
-- (void)setBaselineAdjustment:(UIBaselineAdjustment)baselineAdjustment {
-    super.baselineAdjustment = baselineAdjustment;
-    self->_labelFlags.isContentCached = NO;
-}
-
-- (void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth {
-    super.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth;
-    self->_labelFlags.isContentCached = NO;
-}
 
 #pragma mark - Link
-- (void)addLinkInRange:(NSRange)range detectDataType:(NSInteger)dataTypes usingBlock:(void(^)(PHTextCheckingResult *result))block {
-    NSMutableArray *newLinks = [NSMutableArray arrayWithCapacity:1];
+- (NSTextCheckingResult *)textCheckingResultWithIndex:(NSInteger)idx {
+    
+    NSTextCheckingResult *validResult = nil;
+    
+    for (NSTextCheckingResult *result in [(NSDictionary *)self.links allKeys]) {
+        NSRange range = result.range;
+        
+        if ((idx - range.location <= range.length)) {
+            validResult = result;
+            break;
+        }
+    }
+    
+    return validResult;
+}
+
+
+- (void)callBlockLinkedToResult:(NSTextCheckingResult *)result {
+    void(^block)(NSTextCheckingResult *result) = CFDictionaryGetValue(self.links, result);
+    block(result);
+}
+
+
+
+- (void)addLinkInRange:(NSRange)range detectDataType:(NSInteger)dataTypes usingBlock:(void(^)(NSTextCheckingResult *result))block {
+    __block BOOL detectedTypes = NO;
     
     if (dataTypes) {
         NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:dataTypes error:nil];
@@ -309,54 +350,55 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
                                        options:NSMatchingReportCompletion 
                                          range:range
                                     usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                                        [newLinks addObject:result];
+                                        
+                                        CFDictionarySetValue(self.links, result, [Block_copy(block) autorelease]);
+                                        
+                                        detectedTypes = YES;
                                     }];        
     }
     
-    if ([newLinks count] == 0) {
-        [newLinks addObject:[NSTextCheckingResult linkCheckingResultWithRange:range URL:nil]];
+    if (!detectedTypes) {
+        CFDictionarySetValue(self.links, [NSTextCheckingResult linkCheckingResultWithRange:range URL:nil], [Block_copy(block) autorelease]);
     }
-    
-    [self.links addObjectsFromArray:newLinks];
 }
 
 
 - (void)removeAllLinks {
-    [self.links removeAllObjects];
+    CFDictionaryRemoveAllValues(self.links);
 }
 
-#pragma mark - UIResponder
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-
-    CGPoint point   = [[touches anyObject] locationInView:self];
-    NSArray *frames = [(NSArray *)self.cachedContent valueForKeyPath:kPHAttributedLabelCachedRectKey];
-    
-    for (NSValue *value in frames) {
-        CGRect frame = [value CGRectValue];
-        if (CGRectContainsPoint(frame, point)) {
-            CFDictionaryRef dictionary  = (CFDictionaryRef)[(NSArray *)self.cachedContent objectAtIndex:[frames indexOfObject:value]];
-            CTLineRef line              = CFDictionaryGetValue(dictionary, kPHAttributedLabelCachedLineKey);
-            CFRange range               = CTLineGetStringRange(line);
-            break;
-        }
+#pragma mark - UIGestureRecognizer
+- (void)labelTouched:(UIGestureRecognizer *)gestureRecognizer {
+    if (self.highlightedResult && gestureRecognizer.state == UIGestureRecognizerStateRecognized) {
+        [self callBlockLinkedToResult:self.highlightedResult];
+        self.highlightedResult = nil;        
     }
 }
 
+#pragma mark Delegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([(NSDictionary *)self.links count] == 0) {
+        return NO;
+    } 
+    else {
+        CGPoint point   = [touch locationInView:self];
+        
+        for (NSDictionary *dictionary in (NSArray *)self.cachedContent) {
+            CGRect frame = [[dictionary valueForKeyPath:kPHAttributedLabelCachedRectKey] CGRectValue];
+            
+            if (CGRectContainsPoint(frame, point)) {
+                CTLineRef line              = CFDictionaryGetValue((CFDictionaryRef)dictionary, kPHAttributedLabelCachedLineKey);
+                CFIndex idx                 = CTLineGetStringIndexForPosition(line, point);
+                
+                self.highlightedResult      = [self textCheckingResultWithIndex:idx];
+                break;
+            }
+        }    
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesCancelled:touches withEvent:event];
+        return YES;
+    }
 }
 
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesEnded:touches withEvent:event];
-}
-
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesMoved:touches withEvent:event];
-}
 
 #pragma mark - Key-Value Observing
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -370,6 +412,7 @@ static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLab
 @synthesize typesetter              = _typesetter;
 @synthesize textInsets              = _textInsets;
 @synthesize links                   = _links;
+@synthesize highlightedResult       = _highlightedResult;
 @dynamic text;
 @end
 

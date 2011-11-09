@@ -36,7 +36,10 @@
     
     self.attributedLabel.text = @"Ground round hamburger brisket, meatloaf shankle sausage strip steak flank pork loin pig. Ground round corned beef meatball tenderloin, andouille turkey sausage pork belly. Ham t-bone shoulder, flank spare ribs kielbasa capicola pancetta short loin meatball andouille beef bresaola. Corned beef tenderloin spare ribs tongue. Tail tenderloin tongue, kielbasa turducken tri-tip swine corned beef shoulder strip steak chuck short ribs hamburger bacon. Tail shankle rump, jerky shank tri-tip strip steak ball tip meatball jowl venison pork belly beef ribs short loin. Beef bresaola turducken, fatback tongue leberkäse jowl.";
     
-//    self.attributedLabel.text = @"Test";
+    [self.attributedLabel addLinkInRange:NSMakeRange(0, 6) detectDataType:kPHAttributedLabelAutoDetectDisabled usingBlock:^(NSTextCheckingResult *result) {
+        NSLog(@"Link clicked with Text Checking Result: %@", result);
+    }];
+    
 
     self.label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 100)] autorelease];
     self.label.backgroundColor = [UIColor clearColor];
