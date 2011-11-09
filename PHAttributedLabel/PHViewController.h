@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHAttributedLabel.h"
 
-@interface PHViewController : UIViewController
 
+@interface PHViewController : UIViewController {
+    PHAttributedLabel   *_attributedLabel;
+    UILabel             *_label;
+}
+
+@property (nonatomic, retain) PHAttributedLabel *attributedLabel;
+@property (nonatomic, retain) UILabel *label;
 @end
