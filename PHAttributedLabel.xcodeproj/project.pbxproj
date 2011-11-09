@@ -348,8 +348,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PHAttributedLabel/PHAttributedLabel-Prefix.pch";
-				INFOPLIST_FILE = "PHAttributedLabel/PHAttributedLabel-Info.plist";
+				GCC_PREFIX_HEADER = "Example/PHAttributedLabel-Prefix.pch";
+				INFOPLIST_FILE = "Example/PHAttributedLabel-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -359,8 +359,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PHAttributedLabel/PHAttributedLabel-Prefix.pch";
-				INFOPLIST_FILE = "PHAttributedLabel/PHAttributedLabel-Info.plist";
+				GCC_PREFIX_HEADER = "Example/PHAttributedLabel-Prefix.pch";
+				INFOPLIST_FILE = "Example/PHAttributedLabel-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -373,8 +373,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PHAttributedLabel/PHAttributedLabel-Prefix.pch";
-				INFOPLIST_FILE = "PHAttributedLabel/PHAttributedLabel-Info.plist";
+				GCC_PREFIX_HEADER = "Example/PHAttributedLabel-Prefix.pch";
+				INFOPLIST_FILE = "Example/PHAttributedLabel-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
@@ -388,8 +388,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PHAttributedLabel/PHAttributedLabel-Prefix.pch";
-				INFOPLIST_FILE = "PHAttributedLabel/PHAttributedLabel-Info.plist";
+				GCC_PREFIX_HEADER = "Example/PHAttributedLabel-Prefix.pch";
+				INFOPLIST_FILE = "Example/PHAttributedLabel-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
