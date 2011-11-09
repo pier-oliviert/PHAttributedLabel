@@ -23,9 +23,6 @@
 		00F16B5D14696814008F4B6A /* PHAttributedLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F16B5B14696814008F4B6A /* PHAttributedLabel.h */; };
 		00F16B5E14696814008F4B6A /* PHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B5C14696814008F4B6A /* PHAttributedLabel.m */; };
 		00F16B5F14696814008F4B6A /* PHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B5C14696814008F4B6A /* PHAttributedLabel.m */; };
-		00F16B6714696888008F4B6A /* CMFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B6114696888008F4B6A /* CMFontManager.m */; };
-		00F16B6814696888008F4B6A /* CMText.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B6414696888008F4B6A /* CMText.m */; };
-		00F16B6914696888008F4B6A /* UIFont+CTFontRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F16B6614696888008F4B6A /* UIFont+CTFontRef.m */; };
 		00F16B6C146968BE008F4B6A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B6B146968BE008F4B6A /* CoreText.framework */; };
 		00F16B6D146968C5008F4B6A /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F16B6B146968BE008F4B6A /* CoreText.framework */; };
 		00F16B771469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F16B751469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.h */; };
@@ -324,9 +321,6 @@
 				00F16B3C146967BA008F4B6A /* PHAppDelegate.m in Sources */,
 				00F16B3F146967BA008F4B6A /* PHViewController.m in Sources */,
 				00F16B5E14696814008F4B6A /* PHAttributedLabel.m in Sources */,
-				00F16B6714696888008F4B6A /* CMFontManager.m in Sources */,
-				00F16B6814696888008F4B6A /* CMText.m in Sources */,
-				00F16B6914696888008F4B6A /* UIFont+CTFontRef.m in Sources */,
 				00F16B781469B47A008F4B6A /* NSAttributedString+PHCoreTextUtility.m in Sources */,
 				002212421469DF2F000E8F1C /* PHTextCheckingResult.m in Sources */,
 			);

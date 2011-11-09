@@ -12,4 +12,7 @@
 
 //range within the attributed string
 @property (atomic, assign) NSRange range;
+
+@property (nonatomic, retain) id context;
+
 @end

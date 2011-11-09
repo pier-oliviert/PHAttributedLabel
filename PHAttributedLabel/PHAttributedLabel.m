@@ -15,6 +15,7 @@ static NSString * const kPHAttributedLabelCachedAscentKey   = @"kPHAttributedLab
 static NSString * const kPHAttributedLabelCachedDescentKey  = @"kPHAttributedLabelCachedDescentKey";
 static NSString * const kPHAttributedLabelCachedLeadingKey  = @"kPHAttributedLabelCachedLeadingKey";
 static NSString * const kPHAttributedLabelCachedWidthKey    = @"kPHAttributedLabelCachedWidthKey";
+static NSString * const kPHAttributedLabelCachedRectKey     = @"kPHAttributedLabelCachedRectKey";
 
 @interface PHAttributedLabel (UILineBreakMode)
 
@@ -73,6 +74,7 @@ static NSString * const kPHAttributedLabelCachedWidthKey    = @"kPHAttributedLab
     self.mutableAttributedString    = [[[NSMutableAttributedString alloc] init] autorelease];
     self.cachedContent              = CFArrayCreateMutable(kCFAllocatorDefault, self.numberOfLines, &kCFTypeArrayCallBacks);
     self.links                      = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
+    self.userInteractionEnabled     = YES;
     
     [self addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
     [self addObserver:self forKeyPath:@"bounds" options:NSKeyValueObservingOptionNew context:nil];
@@ -126,7 +128,7 @@ static NSString * const kPHAttributedLabelCachedWidthKey    = @"kPHAttributedLab
 - (CGRect)drawLine:(CTLineRef)line atPosition:(CGPoint)position withContext:(CGContextRef)context usingInfo:(NSDictionary *)lineInfo {
     CGFloat width, ascent, descent, leading;
     CGPoint f_pos; //flipped position.
-
+    CGRect rect;
     f_pos   = CGPointApplyAffineTransform(position, CGAffineTransformMakeScale(1, -1));
     
     ascent  = [[lineInfo valueForKey:kPHAttributedLabelCachedAscentKey] floatValue];
@@ -140,8 +142,11 @@ static NSString * const kPHAttributedLabelCachedWidthKey    = @"kPHAttributedLab
     
     CGContextSetTextPosition(context, f_pos.x, f_pos.y);
     CTLineDraw(line, context);
-        
-    return CGRectMake(position.x, position.y , width, ascent + descent + leading);
+    
+    rect = CGRectMake(position.x, position.y , width, ascent + descent + leading);
+    [lineInfo setValue:[NSValue valueWithCGRect:rect] forKey:kPHAttributedLabelCachedRectKey];
+
+    return rect;
 }
 
 
@@ -296,23 +301,61 @@ static NSString * const kPHAttributedLabelCachedWidthKey    = @"kPHAttributedLab
 
 #pragma mark - Link
 - (void)addLinkInRange:(NSRange)range detectDataType:(NSInteger)dataTypes usingBlock:(void(^)(PHTextCheckingResult *result))block {
+    NSMutableArray *newLinks = [NSMutableArray arrayWithCapacity:1];
+    
     if (dataTypes) {
         NSDataDetector *dataDetector = [NSDataDetector dataDetectorWithTypes:dataTypes error:nil];
         [dataDetector enumerateMatchesInString:[self.mutableAttributedString string]
                                        options:NSMatchingReportCompletion 
-                                         range:range 
+                                         range:range
                                     usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                                        [self.links addObject:result];
+                                        [newLinks addObject:result];
                                     }];        
     }
     
-    PHTextCheckingResult *result = [[[PHTextCheckingResult alloc] init] autorelease];
-    result.range = range;
+    if ([newLinks count] == 0) {
+        [newLinks addObject:[NSTextCheckingResult linkCheckingResultWithRange:range URL:nil]];
+    }
+    
+    [self.links addObjectsFromArray:newLinks];
 }
 
 
 - (void)removeAllLinks {
     [self.links removeAllObjects];
+}
+
+#pragma mark - UIResponder
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+
+    CGPoint point   = [[touches anyObject] locationInView:self];
+    NSArray *frames = [(NSArray *)self.cachedContent valueForKeyPath:kPHAttributedLabelCachedRectKey];
+    
+    for (NSValue *value in frames) {
+        CGRect frame = [value CGRectValue];
+        if (CGRectContainsPoint(frame, point)) {
+            CFDictionaryRef dictionary  = (CFDictionaryRef)[(NSArray *)self.cachedContent objectAtIndex:[frames indexOfObject:value]];
+            CTLineRef line              = CFDictionaryGetValue(dictionary, kPHAttributedLabelCachedLineKey);
+            CFRange range               = CTLineGetStringRange(line);
+            break;
+        }
+    }
+}
+
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesCancelled:touches withEvent:event];
+}
+
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
+}
+
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
 }
 
 #pragma mark - Key-Value Observing
