@@ -280,6 +280,10 @@ NSUInteger const kPHAttributedLabelAutoDetectDisabled       = 0;
             super.text                          = [text string];
             self->_labelFlags.isContentCached   = NO;
         }
+    } else {
+        NSAssert(text == nil, @"argument passed can either be a NSString, NSAttributedString or nil.", nil);
+        super.text = text;
+        [self.mutableAttributedString deleteCharactersInRange:NSMakeRange(0, [self.mutableAttributedString length])];
     }
 }
 
