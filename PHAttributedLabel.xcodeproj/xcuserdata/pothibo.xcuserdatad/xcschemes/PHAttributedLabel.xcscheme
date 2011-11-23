@@ -2,7 +2,7 @@
 <Scheme
    version = "1.3">
    <BuildAction
-      parallelizeBuildables = "NO"
+      parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
       <BuildActionEntries>
          <BuildActionEntry
@@ -13,7 +13,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00F16B4E146967D7008F4B6A"
+               BlueprintIdentifier = "00384D1C147C379F005CD0C1"
                BuildableName = "PHAttributedLabel.framework"
                BlueprintName = "PHAttributedLabel"
                ReferencedContainer = "container:PHAttributedLabel.xcodeproj">
